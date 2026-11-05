@@ -1,0 +1,11 @@
+# Dados e segredos dos containers (bancos, contas, chaves de API, caches) — ~3 GB
+Config/
+config/
+
+# Variáveis com segredos
+.env
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store

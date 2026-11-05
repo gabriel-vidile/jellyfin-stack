@@ -1,0 +1,92 @@
+{
+	"folders": [
+		{
+			"name": "Jellyfin (media stack)",
+			"path": "."
+		}
+	],
+	"settings": {
+		// Config/ tem ~3 GB de cache, bancos e logs dos containers: fora da busca e do watcher
+		"files.exclude": {
+			"**/Config/**/cache": true,
+			"**/Config/**/.cache": true,
+			"**/Config/**/.aspnet": true,
+			"**/Config/aiostreams/anime-database": true,
+			"**/Config/aiostreams/seadex": true
+		},
+		"search.exclude": {
+			"Config/**": true
+		},
+		"files.watcherExclude": {
+			"Config/**": true
+		},
+		"files.associations": {
+			"docker-compose*.yml": "dockercompose"
+		},
+		"[dockercompose]": {
+			"editor.tabSize": 2,
+			"editor.insertSpaces": true
+		}
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "stack: up",
+				"type": "shell",
+				"command": "docker compose up -d",
+				"options": { "cwd": "${workspaceFolder}" },
+				"problemMatcher": []
+			},
+			{
+				"label": "stack: down",
+				"type": "shell",
+				"command": "docker compose down",
+				"options": { "cwd": "${workspaceFolder}" },
+				"problemMatcher": []
+			},
+			{
+				"label": "stack: pull + recreate",
+				"type": "shell",
+				"command": "docker compose pull; docker compose up -d",
+				"options": { "cwd": "${workspaceFolder}" },
+				"problemMatcher": []
+			},
+			{
+				"label": "stack: status",
+				"type": "shell",
+				"command": "docker compose ps",
+				"options": { "cwd": "${workspaceFolder}" },
+				"problemMatcher": []
+			},
+			{
+				"label": "stack: logs (serviço)",
+				"type": "shell",
+				"command": "docker compose logs -f --tail 200 ${input:service}",
+				"options": { "cwd": "${workspaceFolder}" },
+				"problemMatcher": []
+			},
+			{
+				"label": "stack: restart (serviço)",
+				"type": "shell",
+				"command": "docker compose restart ${input:service}",
+				"options": { "cwd": "${workspaceFolder}" },
+				"problemMatcher": []
+			}
+		],
+		"inputs": [
+			{
+				"id": "service",
+				"type": "pickString",
+				"description": "Serviço",
+				"options": ["jellyfin", "radarr", "sonarr", "qbittorrent", "prowlarr", "seerr", "flaresolverr", "aiostreams", "threadfin"]
+			}
+		]
+	},
+	"extensions": {
+		"recommendations": [
+			"ms-azuretools.vscode-containers",
+			"redhat.vscode-yaml"
+		]
+	}
+}
