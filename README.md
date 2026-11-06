@@ -172,6 +172,7 @@ Quase todo problema se resolve com um destes passos: ver o log do serviço, rein
 | --- | --- | --- |
 | Nenhum endereço abre | Docker Desktop fechado | Abra o Docker Desktop e rode **stack: up** |
 | Só um serviço não abre | Container caiu | **stack: logs (serviço)** para ver o erro, depois **stack: restart (serviço)** |
+| qBittorrent não abre em :8080, e o log mostra ele abrindo e fechando sem parar | Arquivos de trava antigos de um desligamento brusco | **stack: down**, apague `Config\qbittorrent\qBittorrent\lockfile` e `ipc-socket`, depois **stack: up** |
 | Filmes de um HD sumiram ou ficaram cinza | HD estava desligado quando a stack subiu | Ligue o HD, reinicie o `jellyfin` e escaneie as bibliotecas |
 | Pedido parado em "Processando" | Indexador fora do ar ou nenhum resultado | Siga a lista de *Do pedido ao play* |
 | Download concluído, mas não aparece no Jellyfin | Import falhou no Radarr ou Sonarr | **Activity → Queue → Manual Import** |
